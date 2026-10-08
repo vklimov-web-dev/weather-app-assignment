@@ -170,3 +170,80 @@ h1 {
   color: #536078;
   font-size: 0.875rem;
 }
+
+.temperature-chart {
+  width: min(100%, 40rem);
+  margin-top: 2rem;
+}
+
+.temperature-chart h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.temperature-chart__summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  color: #536078;
+  font-size: 0.875rem;
+}
+
+.temperature-chart__scroll {
+  margin-top: 0.75rem;
+  padding-bottom: 0.375rem;
+  overflow-x: auto;
+}
+
+.temperature-chart__canvas {
+  width: 100%;
+  min-width: 40rem;
+  border: 1px solid #d9dfeb;
+  border-radius: 0.5rem;
+  background: #fff;
+}
+
+.temperature-chart__plot {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.temperature-chart__grid {
+  stroke: #d9dfeb;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.temperature-chart__axis {
+  stroke: #77839a;
+  stroke-width: 1.5;
+  vector-effect: non-scaling-stroke;
+}
+
+.temperature-chart__scale,
+.temperature-chart__day,
+.temperature-chart__axis-title {
+  fill: #536078;
+  font-size: 20px;
+}
+
+.temperature-chart__axis-title {
+  font-weight: 650;
+}
+
+.temperature-chart__line {
+  fill: none;
+  stroke: #2666cf;
+  stroke-linejoin: round;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.temperature-chart__point {
+  fill: #2666cf;
+  stroke: #fff;
+  stroke-width: 2;
+  vector-effect: non-scaling-stroke;
+}

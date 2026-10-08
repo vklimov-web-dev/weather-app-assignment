@@ -11,6 +11,7 @@ maximálních teplot.
 - načtení předpovědi podle souřadnic vybraného města;
 - načtení předpovědi pro aktuální polohu uživatele;
 - seskupení tříhodinových záznamů do pěti místních kalendářních dnů;
+- graf vývoje teploty v tříhodinových intervalech;
 - formátování data a teplot podle nastavení prohlížeče;
 - stav načítání a srozumitelná zpráva při chybě API.
 

@@ -12,7 +12,7 @@ const FORECAST_DAY_COUNT = 5
  * OpenWeather timestamps are UTC. Adding the city's offset before reading the
  * UTC date keeps late-night entries in the correct local forecast day.
  */
-const getLocalDate = (timestamp: number, timezone: number): string =>
+export const getLocalDate = (timestamp: number, timezone: number): string =>
   new Date((timestamp + timezone) * 1_000).toISOString().slice(0, 10)
 
 export function createDailyForecast(

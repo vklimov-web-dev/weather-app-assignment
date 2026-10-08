@@ -1,6 +1,7 @@
 import type { Coordinates } from '../city-search/cityCatalog'
 import { createDailyForecast } from './forecastDays'
 import { ForecastTable } from './ForecastTable'
+import { TemperatureChart } from './TemperatureChart'
 import { useForecastQuery } from './useForecastQuery'
 
 type ForecastStatusProps = Readonly<{
@@ -32,7 +33,15 @@ export function ForecastStatus({
   } else if (forecast.isError) {
     content = <p>{forecast.error.message}</p>
   } else {
-    content = <ForecastTable days={createDailyForecast(forecast.data)} />
+    content = (
+      <>
+        <ForecastTable days={createDailyForecast(forecast.data)} />
+        <TemperatureChart
+          entries={forecast.data.list}
+          timezone={forecast.data.city.timezone}
+        />
+      </>
+    )
   }
 
   return (
