@@ -23,8 +23,9 @@ body {
   margin: 0;
 }
 
+/* The 40rem content area keeps its 1rem gutter on both sides. */
 #root {
-  width: min(100%, 40rem);
+  width: min(100%, 42rem);
   margin-inline: auto;
 }
 
