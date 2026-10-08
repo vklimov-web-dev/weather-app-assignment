@@ -1,4 +1,6 @@
 import type { City } from '../city-search/cityCatalog'
+import { createDailyForecast } from './forecastDays'
+import { ForecastTable } from './ForecastTable'
 import { useForecastQuery } from './useForecastQuery'
 
 type ForecastStatusProps = Readonly<{
@@ -16,5 +18,5 @@ export function ForecastStatus({ city }: ForecastStatusProps) {
     return <p>{forecast.error.message}</p>
   }
 
-  return <p>Načteno záznamů předpovědi: {forecast.data.list.length}</p>
+  return <ForecastTable days={createDailyForecast(forecast.data)} />
 }

@@ -93,3 +93,29 @@ h1 {
   color: #536078;
   font-size: 0.875rem;
 }
+
+.forecast-table {
+  width: min(100%, 40rem);
+  margin-top: 2rem;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.forecast-table caption {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 650;
+  text-align: left;
+}
+
+.forecast-table th,
+.forecast-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #d9dfeb;
+  text-align: left;
+}
+
+.forecast-table thead th {
+  color: #536078;
+  font-size: 0.875rem;
+}
