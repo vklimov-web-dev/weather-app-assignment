@@ -23,9 +23,7 @@ describe('loadCityCatalog', () => {
     )
 
     await expect(loadCityCatalog()).resolves.toEqual(validCatalog)
-    expect(fetch).toHaveBeenCalledWith('/data/city.list.json', {
-      signal: undefined,
-    })
+    expect(fetch).toHaveBeenCalledWith('/data/city.list.json')
   })
 
   it('rejects an invalid catalog', async () => {

@@ -29,13 +29,8 @@ const isCity = (value: unknown): value is City => {
   )
 }
 
-export async function loadCityCatalog(
-  signal?: AbortSignal,
-): Promise<readonly City[]> {
-  const response = await fetch(
-    `${import.meta.env.BASE_URL}data/city.list.json`,
-    { signal },
-  )
+export async function loadCityCatalog(): Promise<readonly City[]> {
+  const response = await fetch(`${import.meta.env.BASE_URL}data/city.list.json`)
 
   if (!response.ok) {
     throw new Error(`City catalog request failed with status ${response.status}`)
