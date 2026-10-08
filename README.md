@@ -54,10 +54,12 @@ v prohlížeči.
 ## Kontrola projektu
 
 ```bash
-npm test
-npm run lint
+npm run check
 npm run build
 ```
+
+Příkaz `npm run check` postupně spustí kontrolu TypeScriptu, ESLint a testy.
+Pro samostatnou kontrolu typů lze použít `npm run typecheck`.
 
 Produkční sestavení se vytvoří v adresáři `dist`.
 
