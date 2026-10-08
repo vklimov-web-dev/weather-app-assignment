@@ -3,6 +3,7 @@ import type { City } from './cityCatalog'
 export type CitySearchEntry = Readonly<{
   city: City
   normalizedName: string
+  normalizedLabel: string
 }>
 
 const DEFAULT_RESULT_LIMIT = 10
@@ -18,9 +19,13 @@ export const normalizeSearchText = (value: string): string =>
     .trim()
     .toLowerCase()
 
+export const formatCityLabel = (city: City): string =>
+  [city.name, city.state, city.country].filter(Boolean).join(', ')
+
 /**
- * Normalizes names once because the catalog contains more than 200,000
- * records and repeating this work on every keystroke would be wasteful.
+ * Normalizes names and displayed labels once because the catalog contains
+ * more than 200,000 records and repeating this work on every keystroke would
+ * be wasteful.
  */
 export const createCitySearchIndex = (
   cities: readonly City[],
@@ -28,10 +33,8 @@ export const createCitySearchIndex = (
   cities.map((city) => ({
     city,
     normalizedName: normalizeSearchText(city.name),
+    normalizedLabel: normalizeSearchText(formatCityLabel(city)),
   }))
-
-export const formatCityLabel = (city: City): string =>
-  [city.name, city.state, city.country].filter(Boolean).join(', ')
 
 /**
  * Ranks exact and prefix matches above substring matches while preserving
@@ -53,15 +56,18 @@ export const searchCities = (
   const otherMatches: City[] = []
 
   for (const entry of index) {
-    if (!entry.normalizedName.includes(normalizedQuery)) {
+    if (!entry.normalizedLabel.includes(normalizedQuery)) {
       continue
     }
 
-    if (entry.normalizedName === normalizedQuery) {
+    if (
+      entry.normalizedName === normalizedQuery ||
+      entry.normalizedLabel === normalizedQuery
+    ) {
       if (exactMatches.length < limit) {
         exactMatches.push(entry.city)
       }
-    } else if (entry.normalizedName.startsWith(normalizedQuery)) {
+    } else if (entry.normalizedLabel.startsWith(normalizedQuery)) {
       if (prefixMatches.length < limit) {
         prefixMatches.push(entry.city)
       }

@@ -56,6 +56,15 @@ describe('searchCities', () => {
     expect(searchCities(index, 'ceske')).toEqual([cities[1]])
   })
 
+  it('keeps a selected city searchable while its full label is edited', () => {
+    const selectedCity = city(20, 'New York Mills', 'MN', 'US')
+    const selectedCityIndex = createCitySearchIndex([selectedCity])
+
+    expect(
+      searchCities(selectedCityIndex, 'New York Mills, MN, U'),
+    ).toEqual([selectedCity])
+  })
+
   it('keeps duplicate city records and respects the result limit', () => {
     expect(searchCities(index, 'praha')).toEqual([cities[0], cities[4]])
     expect(searchCities(index, 'praha', 1)).toEqual([cities[0]])
