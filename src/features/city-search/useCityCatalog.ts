@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
 import { loadCityCatalog } from './cityCatalog'
 import {
@@ -14,17 +14,23 @@ type CatalogState =
   | Readonly<{ status: 'error' }>
 
 export function useCityCatalog(): CatalogState {
-  const [catalog, setCatalog] = useState<CatalogState>({ status: 'loading' })
+  const catalog = useQuery({
+    queryKey: ['city-catalog'],
+    queryFn: async () => createCitySearchIndex(await loadCityCatalog()),
+    // The catalog does not change during a page session, so keep the prepared
+    // search index without refetching or discarding it after an unmount.
+    staleTime: Infinity,
+    gcTime: Infinity,
+    retry: false,
+  })
 
-  useEffect(() => {
-    void loadCityCatalog()
-      .then((cities) => {
-        setCatalog({ status: 'ready', index: createCitySearchIndex(cities) })
-      })
-      .catch(() => {
-        setCatalog({ status: 'error' })
-      })
-  }, [])
+  if (catalog.isPending) {
+    return { status: 'loading' }
+  }
 
-  return catalog
+  if (catalog.isError) {
+    return { status: 'error' }
+  }
+
+  return { status: 'ready', index: catalog.data }
 }
