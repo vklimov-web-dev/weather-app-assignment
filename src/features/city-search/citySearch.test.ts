@@ -4,6 +4,7 @@ import type { City } from './cityCatalog'
 import {
   createCitySearchIndex,
   formatCityLabel,
+  getCitySuggestionSuffix,
   normalizeSearchText,
   searchCities,
 } from './citySearch'
@@ -82,5 +83,20 @@ describe('formatCityLabel', () => {
       'Praha, Hlavní město Praha, CZ',
     )
     expect(formatCityLabel(cities[0])).toBe('Praha, CZ')
+  })
+})
+
+describe('getCitySuggestionSuffix', () => {
+  it('returns the remaining label of a prefix match', () => {
+    expect(getCitySuggestionSuffix('ceske', cities[1])).toBe(
+      ' Budějovice, CZ',
+    )
+  })
+
+  it('does not suggest text for a substring match or a complete label', () => {
+    const newYork = city(30, 'New York', 'NY', 'US')
+
+    expect(getCitySuggestionSuffix('York', newYork)).toBe('')
+    expect(getCitySuggestionSuffix('New York, NY, US', newYork)).toBe('')
   })
 })

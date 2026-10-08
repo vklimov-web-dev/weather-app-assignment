@@ -22,6 +22,28 @@ export const normalizeSearchText = (value: string): string =>
 export const formatCityLabel = (city: City): string =>
   [city.name, city.state, city.country].filter(Boolean).join(', ')
 
+export const getCitySuggestionSuffix = (
+  query: string,
+  city: City | undefined,
+): string => {
+  if (!city || query !== query.trim()) {
+    return ''
+  }
+
+  const label = formatCityLabel(city)
+  const normalizedQuery = normalizeSearchText(query)
+
+  if (
+    !normalizedQuery ||
+    !normalizeSearchText(label).startsWith(normalizedQuery) ||
+    query.length >= label.length
+  ) {
+    return ''
+  }
+
+  return label.slice(query.length)
+}
+
 /**
  * Normalizes names and displayed labels once because the catalog contains
  * more than 200,000 records and repeating this work on every keystroke would

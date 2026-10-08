@@ -11,6 +11,7 @@ import { CityOptions } from './CityOptions'
 import { CitySearchInput } from './CitySearchInput'
 import {
   formatCityLabel,
+  getCitySuggestionSuffix,
   searchCities,
 } from './citySearch'
 import { getNextActiveIndex } from './cityAutocompleteNavigation'
@@ -75,6 +76,9 @@ export function CityAutocomplete({
 
   const isListVisible = isOpen && results.length > 0
   const activeCity = activeIndex >= 0 ? results[activeIndex] : undefined
+  const suggestionSuffix = isListVisible
+    ? getCitySuggestionSuffix(query, results[0])
+    : ''
 
   const selectCity = (city: City) => {
     setQuery(formatCityLabel(city))
@@ -136,6 +140,7 @@ export function CityAutocomplete({
     <div className="city-search" onBlur={handleBlur}>
       <CitySearchInput
         value={query}
+        suggestionSuffix={suggestionSuffix}
         onChange={handleQueryChange}
         onKeyDown={handleKeyDown}
       />
