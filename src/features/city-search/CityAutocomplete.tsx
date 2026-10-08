@@ -22,7 +22,7 @@ import {
 } from './useCityCatalog'
 
 type CityAutocompleteProps = Readonly<{
-  onCityChange: (city: City | null) => void
+  onCityChange: (city: City) => void
   onCurrentLocationChange: (coordinates: Coordinates) => void
 }>
 
@@ -101,7 +101,6 @@ export function CityAutocomplete({
     setQuery(event.target.value)
     setActiveIndex(-1)
     setIsOpen(true)
-    onCityChange(null)
   }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -148,21 +147,23 @@ export function CityAutocomplete({
 
   return (
     <div className="city-search" onBlur={handleBlur}>
-      <CitySearchInput
-        value={query}
-        suggestionSuffix={suggestionSuffix}
-        onChange={handleQueryChange}
-        onKeyDown={handleKeyDown}
-      />
-
-      {isListVisible ? (
-        <CityOptions
-          cities={results}
-          activeIndex={activeIndex}
-          onActiveIndexChange={setActiveIndex}
-          onSelect={selectCity}
+      <div className="city-search__autocomplete">
+        <CitySearchInput
+          value={query}
+          suggestionSuffix={suggestionSuffix}
+          onChange={handleQueryChange}
+          onKeyDown={handleKeyDown}
         />
-      ) : null}
+
+        {isListVisible ? (
+          <CityOptions
+            cities={results}
+            activeIndex={activeIndex}
+            onActiveIndexChange={setActiveIndex}
+            onSelect={selectCity}
+          />
+        ) : null}
+      </div>
 
       <p className="city-search__status">{statusMessage}</p>
 

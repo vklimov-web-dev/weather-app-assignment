@@ -45,9 +45,9 @@ export function ForecastStatus({
   }
 
   return (
-    <>
+    <div className="forecast">
       <p>Vybrané místo: {displayedLocation}</p>
       {content}
-    </>
+    </div>
   )
 }

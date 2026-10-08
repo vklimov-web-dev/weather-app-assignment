@@ -22,16 +22,12 @@ export function App() {
   const [selectedLocation, setSelectedLocation] =
     useState<ForecastLocation | null>(null);
 
-  const handleCityChange = (city: City | null) => {
-    setSelectedLocation(
-      city
-        ? {
-            label: formatCityLabel(city),
-            coordinates: city.coord,
-            showResolvedCity: false,
-          }
-        : null,
-    );
+  const handleCityChange = (city: City) => {
+    setSelectedLocation({
+      label: formatCityLabel(city),
+      coordinates: city.coord,
+      showResolvedCity: false,
+    });
   };
 
   const handleCurrentLocationChange = (coordinates: Coordinates) => {
@@ -62,7 +58,9 @@ export function App() {
             showResolvedCity={selectedLocation.showResolvedCity}
           />
         ) : (
-          <p>Vyberte město nebo použijte aktuální polohu.</p>
+          <p className="forecast-placeholder">
+            Vyberte město nebo použijte aktuální polohu.
+          </p>
         )}
       </main>
     </QueryClientProvider>
