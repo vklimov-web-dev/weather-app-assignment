@@ -13,7 +13,7 @@ const forecast = (
   timezone = 0,
 ): ForecastData => ({
   list,
-  city: { timezone },
+  city: { name: 'Test city', country: 'CZ', timezone },
 })
 
 describe('createDailyForecast', () => {

@@ -10,6 +10,8 @@ export type ForecastEntry = Readonly<{
 export type ForecastData = Readonly<{
   list: readonly ForecastEntry[]
   city: Readonly<{
+    name: string
+    country: string
     timezone: number
   }>
 }>
@@ -30,6 +32,8 @@ const isForecastData = (value: unknown): value is ForecastData =>
   Array.isArray(value.list) &&
   value.list.every(isForecastEntry) &&
   isRecord(value.city) &&
+  typeof value.city.name === 'string' &&
+  typeof value.city.country === 'string' &&
   typeof value.city.timezone === 'number'
 
 /**

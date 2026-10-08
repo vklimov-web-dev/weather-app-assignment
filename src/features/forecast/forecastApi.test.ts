@@ -5,7 +5,7 @@ import { fetchForecast } from './forecastApi'
 const coordinates = { lat: 49.1951, lon: 16.6068 }
 const validForecast = {
   list: [{ dt: 1_700_000_000, main: { temp: 12.5 } }],
-  city: { timezone: 3600 },
+  city: { name: 'Brno', country: 'CZ', timezone: 3600 },
 }
 
 describe('fetchForecast', () => {

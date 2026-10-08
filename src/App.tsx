@@ -3,14 +3,44 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { CityAutocomplete } from "./features/city-search/CityAutocomplete";
-import type { City } from "./features/city-search/cityCatalog";
+import type {
+  City,
+  Coordinates,
+} from "./features/city-search/cityCatalog";
 import { formatCityLabel } from "./features/city-search/citySearch";
 import { ForecastStatus } from "./features/forecast/ForecastStatus";
 
 const queryClient = new QueryClient();
 
+type ForecastLocation = Readonly<{
+  label: string;
+  coordinates: Coordinates;
+  showResolvedCity: boolean;
+}>;
+
 export function App() {
-  const [selectedCity, setSelectedCity] = useState<City | null>(null);
+  const [selectedLocation, setSelectedLocation] =
+    useState<ForecastLocation | null>(null);
+
+  const handleCityChange = (city: City | null) => {
+    setSelectedLocation(
+      city
+        ? {
+            label: formatCityLabel(city),
+            coordinates: city.coord,
+            showResolvedCity: false,
+          }
+        : null,
+    );
+  };
+
+  const handleCurrentLocationChange = (coordinates: Coordinates) => {
+    setSelectedLocation({
+      label: "Aktuální poloha",
+      coordinates,
+      showResolvedCity: true,
+    });
+  };
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -20,15 +50,19 @@ export function App() {
       <main>
         <h1>Předpověď počasí</h1>
 
-        <CityAutocomplete onCityChange={setSelectedCity} />
+        <CityAutocomplete
+          onCityChange={handleCityChange}
+          onCurrentLocationChange={handleCurrentLocationChange}
+        />
 
-        {selectedCity ? (
-          <>
-            <p>Vybrané město: {formatCityLabel(selectedCity)}</p>
-            <ForecastStatus city={selectedCity} />
-          </>
+        {selectedLocation ? (
+          <ForecastStatus
+            coordinates={selectedLocation.coordinates}
+            locationLabel={selectedLocation.label}
+            showResolvedCity={selectedLocation.showResolvedCity}
+          />
         ) : (
-          <p>Vyberte město pro zobrazení předpovědi.</p>
+          <p>Vyberte město nebo použijte aktuální polohu.</p>
         )}
       </main>
     </QueryClientProvider>

@@ -6,7 +6,8 @@ import {
   type KeyboardEvent,
 } from 'react'
 
-import type { City } from './cityCatalog'
+import { CurrentLocationButton } from '../geolocation/CurrentLocationButton'
+import type { City, Coordinates } from './cityCatalog'
 import { CityOptions } from './CityOptions'
 import { CitySearchInput } from './CitySearchInput'
 import {
@@ -22,6 +23,7 @@ import {
 
 type CityAutocompleteProps = Readonly<{
   onCityChange: (city: City | null) => void
+  onCurrentLocationChange: (coordinates: Coordinates) => void
 }>
 
 // Two characters keep searches useful without scanning 200,000 records for
@@ -60,6 +62,7 @@ const getStatusMessage = ({
 
 export function CityAutocomplete({
   onCityChange,
+  onCurrentLocationChange,
 }: CityAutocompleteProps) {
   const catalog = useCityCatalog()
   const [query, setQuery] = useState('')
@@ -85,6 +88,13 @@ export function CityAutocomplete({
     setActiveIndex(-1)
     setIsOpen(false)
     onCityChange(city)
+  }
+
+  const selectCurrentLocation = (coordinates: Coordinates) => {
+    setQuery('')
+    setActiveIndex(-1)
+    setIsOpen(false)
+    onCurrentLocationChange(coordinates)
   }
 
   const handleQueryChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -155,6 +165,8 @@ export function CityAutocomplete({
       ) : null}
 
       <p className="city-search__status">{statusMessage}</p>
+
+      <CurrentLocationButton onSelect={selectCurrentLocation} />
     </div>
   )
 }

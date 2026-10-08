@@ -116,6 +116,35 @@ h1 {
   font-size: 0.875rem;
 }
 
+.current-location {
+  margin-top: 0.75rem;
+}
+
+.current-location__button {
+  border: 1px solid #2666cf;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  color: #1d55b0;
+  background: #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.current-location__button:hover:not(:disabled) {
+  background: #e8f0ff;
+}
+
+.current-location__button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.current-location__error {
+  margin: 0.5rem 0 0;
+  color: #a32626;
+  font-size: 0.875rem;
+}
+
 .forecast-table {
   width: min(100%, 40rem);
   margin-top: 2rem;

@@ -9,6 +9,7 @@ maximálních teplot.
 - našeptávač měst nad lokálním souborem `city.list.json`;
 - ovládání výsledků myší i klávesnicí;
 - načtení předpovědi podle souřadnic vybraného města;
+- načtení předpovědi pro aktuální polohu uživatele;
 - seskupení tříhodinových záznamů do pěti místních kalendářních dnů;
 - formátování data a teplot podle nastavení prohlížeče;
 - stav načítání a srozumitelná zpráva při chybě API.
@@ -45,6 +46,9 @@ Aplikace bude dostupná na adrese vypsané v terminálu, obvykle
 Protože jde pouze o klientskou aplikaci, klíč vložený do proměnné s prefixem
 `VITE_` je součástí výsledného JavaScriptu. Neměl by proto být používán jako
 tajný produkční klíč.
+
+Geolokace funguje na `localhost` nebo přes HTTPS a vyžaduje souhlas uživatele
+v prohlížeči.
 
 ## Kontrola projektu
 
