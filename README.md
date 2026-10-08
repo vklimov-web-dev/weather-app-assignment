@@ -1,12 +1,13 @@
 # Předpověď počasí
 
-Jednostránková React aplikace, která umožňuje vyhledat město z lokálního
-katalogu OpenWeather a zobrazit pro něj pětidenní předpověď minimálních a
-maximálních teplot.
+Jednostránková React aplikace, která umožňuje vyhledat město z katalogu
+OpenWeather a zobrazit pro něj pětidenní předpověď minimálních a maximálních
+teplot.
 
 ## Funkce
 
-- našeptávač měst nad lokálním souborem `city.list.json`;
+- našeptávač měst nad online souborem `city.list.json` s lokální záložní
+  kopií;
 - ovládání výsledků myší i klávesnicí;
 - načtení předpovědi podle souřadnic vybraného města;
 - načtení předpovědi pro aktuální polohu uživatele;
@@ -75,7 +76,7 @@ Aplikace podporuje aktuální stabilní verzi Google Chrome.
   převod odpovědi na denní předpověď a tabulka výsledků;
 - `src/App.tsx` - propojení výběru města s předpovědí;
 - `src/styles.css` - společné styly aplikace;
-- `public/data/city.list.json` - lokální katalog měst pro našeptávač.
+- `public/data/city.list.json` - záložní kopie online katalogu měst.
 
 Projekt používá funkcionální přístup: uživatelské rozhraní tvoří funkční React
 komponenty a vyhledávání i transformace předpovědi jsou oddělené čisté funkce.

@@ -17,18 +17,32 @@ describe('loadCityCatalog', () => {
     vi.restoreAllMocks()
   })
 
-  it('loads and validates the local city catalog', async () => {
+  it('loads and validates the online city catalog', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(
       new Response(JSON.stringify(validCatalog), { status: 200 }),
     )
 
     await expect(loadCityCatalog()).resolves.toEqual(validCatalog)
-    expect(fetch).toHaveBeenCalledWith('/data/city.list.json')
+    expect(fetch).toHaveBeenCalledWith(
+      'https://raw.githubusercontent.com/vklimov-web-dev/weather-app-assignment/main/public/data/city.list.json',
+    )
+  })
+
+  it('falls back to the bundled catalog when online loading fails', async () => {
+    vi.spyOn(globalThis, 'fetch')
+      .mockResolvedValueOnce(new Response(null, { status: 404 }))
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(validCatalog), { status: 200 }),
+      )
+
+    await expect(loadCityCatalog()).resolves.toEqual(validCatalog)
+    expect(fetch).toHaveBeenLastCalledWith('/data/city.list.json')
   })
 
   it('rejects an invalid catalog', async () => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
-      new Response(JSON.stringify([{ id: 'invalid' }]), { status: 200 }),
+    vi.spyOn(globalThis, 'fetch').mockImplementation(
+      async () =>
+        new Response(JSON.stringify([{ id: 'invalid' }]), { status: 200 }),
     )
 
     await expect(loadCityCatalog()).rejects.toThrow(
